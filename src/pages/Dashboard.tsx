@@ -54,7 +54,7 @@ export function Dashboard() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-14 sm:h-16">
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-600">
                 <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -64,7 +64,7 @@ export function Dashboard() {
               <h1 className="text-xl font-bold text-gray-900 dark:text-white">TaskFlow</h1>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="hidden sm:block text-sm text-gray-500 dark:text-gray-400">
                 {user?.email}
               </span>
               <Button variant="secondary" size="sm" onClick={logout}>
@@ -76,7 +76,7 @@ export function Dashboard() {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
               Mis Tareas
