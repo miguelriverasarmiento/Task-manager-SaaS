@@ -103,7 +103,7 @@ export function Dashboard() {
       </main>
 
       <Modal
-        isOpen={isModalOpen}
+        isOpen={isModalOpen} // El modal de creación se abre cuando isModalOpen es true
         onClose={closeModal}
         title="Nueva tarea"
       >
@@ -114,13 +114,13 @@ export function Dashboard() {
       </Modal>
 
       <Modal
-        isOpen={!!editingTask}
+        isOpen={!!editingTask}// Si editingTask es null, el modal estará cerrado, si tiene un valor, estará abierto
         onClose={closeModal}
         title="Editar tarea"
       >
-        {editingTask && (
+        {editingTask && (// Solo renderizamos el formulario si hay una tarea para editar
           <TaskForm
-            task={editingTask}
+            task={editingTask} // Pasamos la tarea que queremos editar al formulario para que pueda mostrar sus datos
             onSubmit={handleUpdateTask}
             onCancel={closeModal}
           />

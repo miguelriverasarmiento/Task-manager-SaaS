@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useState } from 'react'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
 import type { Task } from '../../types/task'
@@ -15,7 +15,7 @@ export function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault()
     if (!title.trim()) {
       setError('El título es requerido')
