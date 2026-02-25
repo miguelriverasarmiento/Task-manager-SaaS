@@ -63,12 +63,12 @@ export function Dashboard() {
               </div>
               <h1 className="text-xl font-bold text-gray-900 dark:text-white">TaskFlow</h1>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <span className="hidden sm:block text-sm text-gray-500 dark:text-gray-400">
                 {user?.email}
               </span>
               <Button variant="secondary" size="sm" onClick={logout}>
-                Cerrar sesión
+                Salir
               </Button>
             </div>
           </div>
