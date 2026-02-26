@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../store/authStore'
+import { useAuth } from '../hooks/useAuth'
+import { validateEmail, validatePassword } from '../utils/helpers'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 
 export function Register() {
   const navigate = useNavigate()
-  const { register, loading, error, clearError } = useAuthStore()
+  const { register, loading, error, clearError } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -22,8 +23,14 @@ export function Register() {
       return
     }
 
-    if (password.length < 6) {
-      setLocalError('La contraseña debe tener al menos 6 caracteres')
+    if (!validateEmail(email)) {
+      setLocalError('Ingresa un email válido')
+      return
+    }
+
+    const passwordValidation = validatePassword(password)
+    if (!passwordValidation.valid) {
+      setLocalError(passwordValidation.message)
       return
     }
 

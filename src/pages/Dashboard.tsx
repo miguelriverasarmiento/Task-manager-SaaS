@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useAuthStore } from '../store/authStore'
+import { useAuth } from '../hooks/useAuth'
 import { useTaskStore } from '../store/taskStore'
+import { getTaskStats } from '../utils/helpers'
 import { Button } from '../components/ui/Button'
 import { Modal } from '../components/ui/Modal'
 import { TaskForm } from '../components/tasks/TaskForm'
@@ -8,16 +9,27 @@ import { TaskList } from '../components/tasks/TaskList'
 import type { Task } from '../types/task'
 
 export function Dashboard() {
-  const { user, logout } = useAuthStore()
+  const { user, logout } = useAuth()
   const { tasks, loading, fetchTasks, createTask, updateTask, deleteTask, toggleComplete } = useTaskStore()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingTask, setEditingTask] = useState<Task | null>(null)
+
+  const stats = getTaskStats(tasks)
+  const isEmailConfirmed = user?.email_confirmed_at != null
 
   useEffect(() => {
     if (user) {
       fetchTasks(user.id)
     }
   }, [user, fetchTasks])
+
+  const handleCreateClick = () => {
+    if (!isEmailConfirmed) {
+      alert('Debes confirmar tu email antes de crear tareas. Revisa tu bandeja de entrada.')
+      return
+    }
+    setIsModalOpen(true)
+  }
 
   const handleCreateTask = async (title: string, description: string) => {
     if (!user) return
@@ -76,16 +88,24 @@ export function Dashboard() {
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {!isEmailConfirmed && (
+          <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+            <p className="text-amber-800 dark:text-amber-200 text-sm">
+              <strong>Email no confirmado:</strong> Revisa tu bandeja de entrada y confirma tu email para poder crear tareas.
+            </p>
+          </div>
+        )}
+
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
               Mis Tareas
             </h2>
             <p className="text-gray-500 dark:text-gray-400 mt-1">
-              {tasks.length} {tasks.length === 1 ? 'tarea' : 'tareas'} en total
+              {stats.completed} completadas · {stats.pending} pendientes · {stats.completionRate}% avances
             </p>
           </div>
-          <Button onClick={() => setIsModalOpen(true)}>
+          <Button onClick={handleCreateClick}>
             <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>

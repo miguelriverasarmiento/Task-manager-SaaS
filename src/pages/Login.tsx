@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../store/authStore'
+import { useAuth } from '../hooks/useAuth'
+import { validateEmail } from '../utils/helpers'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 
 export function Login() {
   const navigate = useNavigate()
-  const { login, loading, error, clearError } = useAuthStore()
+  const { login, loading, error, clearError } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [localError, setLocalError] = useState('')
@@ -18,6 +19,11 @@ export function Login() {
 
     if (!email.trim() || !password) {
       setLocalError('Por favor completa todos los campos')
+      return
+    }
+
+    if (!validateEmail(email)) {
+      setLocalError('Ingresa un email válido')
       return
     }
 
