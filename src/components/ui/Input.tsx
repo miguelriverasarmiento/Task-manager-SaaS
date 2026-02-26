@@ -7,26 +7,35 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, className = '', ...props }, ref) => {
+    const borderColor = error ? '#ef4444' : '#d1d5db'
+    
     return (
-      <div className="w-full">
+      <div style={{ width: '100%' }}>
         {label && (
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 500, marginBottom: '0.25rem', color: '#374151' }} className="dark:text-gray-300">
             {label}
           </label>
         )}
         <input
           ref={ref}
+          style={{
+            width: '100%',
+            padding: '0.5rem 0.75rem',
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            borderColor: borderColor,
+            borderRadius: '0.5rem',
+            outline: 'none',
+          }}
           className={`
-            w-full px-3 py-2 border rounded-lg shadow-sm
-            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
-            transition-colors duration-200
-            dark:bg-gray-800 dark:border-gray-600 dark:text-white
-            ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300'}
+            shadow-sm transition-colors duration-200
+            dark:bg-gray-800 dark:text-white
+            focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
             ${className}
           `}
           {...props}
         />
-        {error && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{error}</p>}
+        {error && <p style={{ marginTop: '0.25rem', fontSize: '0.875rem', color: '#ef4444' }} className="dark:text-red-400">{error}</p>}
       </div>
     )
   }
