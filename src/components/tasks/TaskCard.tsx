@@ -13,11 +13,21 @@ export function TaskCard({ task, onToggleComplete, onEdit, onDelete }: TaskCardP
       <div className="flex items-start gap-3">
         <button
           onClick={() => onToggleComplete(task.id, !task.completed)}
-          className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${
-            task.completed
-              ? 'bg-green-500 border-green-500'
-              : 'border-gray-300 hover:border-indigo-500'
-          }`}
+          style={{
+            width: '20px',
+            height: '20px',
+            borderRadius: '50%',
+            borderWidth: '2px',
+            borderStyle: 'solid',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '2px',
+            flexShrink: 0,
+            backgroundColor: task.completed ? '#22c55e' : 'transparent',
+            borderColor: task.completed ? '#22c55e' : '#d1d5db',
+          }}
+          className={`hover:border-indigo-500 transition-colors duration-200`}
         >
           {task.completed && (
             <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
