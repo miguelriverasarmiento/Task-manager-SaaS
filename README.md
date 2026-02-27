@@ -49,4 +49,4 @@ Front-end architecture skills,
 TypeScript usage in real scenarios,
 Integration with backend services,
 Authentication flow implementation,
-Clean and maintainable code structure,
+Clean and maintainable code structure
