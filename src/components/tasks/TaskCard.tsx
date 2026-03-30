@@ -60,7 +60,7 @@ export function TaskCard({ task, onToggleComplete, onEdit, onDelete }: TaskCardP
           </p>
         </div>
 
-        <div className="flex gap-1 flex-shrink-0">
+        <div className="flex gap-1 shrink-0">
           <button
             onClick={() => onEdit(task)}
             className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-gray-700 rounded-lg transition-colors"
