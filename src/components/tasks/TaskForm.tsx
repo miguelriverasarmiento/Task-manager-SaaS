@@ -10,7 +10,7 @@ interface TaskFormProps {
 }
 
 export function TaskForm({ task, onSubmit, onCancel }: TaskFormProps) {
-  const [title, setTitle] = useState(task?.title || '')  // Inicializa el título con el valor de la tarea si existe, o con una cadena vacía
+  const [title, setTitle] = useState(task?.title || '')
   const [description, setDescription] = useState(task?.description || '')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
